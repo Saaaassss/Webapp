@@ -22,7 +22,7 @@
     <script>
         const startTime = performance.now(); // Start timing
         
-        fetch("http://127.0.0.1:5000/api/data")
+        fetch("/api/data")
             .then(res => res.json())
             .then(data => {
                 const endTime = performance.now(); // End timing
@@ -65,4 +65,5 @@
  
     <script src="/static/script.js"></script>
 </body>
+
 </html>
