@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jenkins</title>
+    <link rel="stylesheet" href="/templates/style.css" />
+</head>
+ 
+<body>
+    <div class="Jenkins-header">
+        <img src="/images/Jenkins.png" alt="Jenkins Logo" />
+    </div>
+ 
+    <div class="Jenkins-container" id="jenkinsContainer">
+        <div id="loadingIndicator" style="text-align: center; padding: 20px; color: #666;">
+            <p>Loading Jenkins links...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+ 
+    <script>
+        const startTime = performance.now(); // Start timing
+        
+        fetch("http://127.0.0.1:5000/api/data")
+            .then(res => res.json())
+            .then(data => {
+                const endTime = performance.now(); // End timing
+                const loadTime = ((endTime - startTime) / 1000).toFixed(3); // Convert to seconds
+                
+                let container = document.getElementById("jenkinsContainer");
+                let jenkinsData = data.Jenkins;
+                
+                // Clear loading indicator
+                container.innerHTML = '';
+                
+                // Add load time display
+                container.innerHTML = `<div style="text-align: right; color: #666; font-size: 14px; margin-bottom: 10px;">
+                    ⚡ Loaded in ${loadTime} seconds
+                </div>`;
+ 
+                for (let team in jenkinsData) {
+                    let section = `<div class="team-section">
+                        <h3>${team}</h3>`;
+                    jenkinsData[team].forEach(item => {
+                        section += `
+                        <div class="link-item">
+                            <div class="link-url">
+                                <a href="${item.url}" target="_blank">${item.url}</a>
+                            </div>
+                            <div class="link-description">${item.description}</div>
+                        </div>`;
+                    });
+                    section += "</div>";
+                    container.innerHTML += section;
+                }
+            })
+            .catch(err => {
+                const endTime = performance.now();
+                const loadTime = ((endTime - startTime) / 1000).toFixed(3);
+                document.getElementById("jenkinsContainer").innerHTML = 
+                    `<p style="color: red;">Error loading data (${loadTime}s): ${err.message}</p>`;
+            });
+    </script>
+ 
+    <script src="/static/script.js"></script>
+</body>
+</html>

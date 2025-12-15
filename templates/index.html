@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Adding Page</title>
+    <link rel="stylesheet" href="/templates/style.css" />
+</head>
+<div class="company-header">
+    <img src="/images/Videojet.png" alt="Company Logo" />
+</div>
+<body>
+    <!-- Login Form -->
+    <div id="login-container" style="max-width:350px;margin:40px auto;padding:30px;background:#fff;border-radius:8px;box-shadow:0 2px 8px #0002;">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label>Username:</label>
+            <input type="text" id="login-username" required><br><br>
+            <label>Password:</label>
+            <input type="password" id="login-password" required><br><br>
+            <button type="submit">Login</button>
+            <div id="login-error" style="color:red;margin-top:10px;display:none;"></div>
+        </form>
+    </div>
+ 
+    <!-- Main Content (hidden until login) -->
+    <div class="form-container" id="main-content" style="display:none;">
+        <h2>Add a New Link</h2>
+        <form id="linkForm">
+            <label>Category:</label>
+            <input type="text" id="category" required><br><br>
+ 
+            <label>Team:</label>
+            <input type="text" id="team" required><br><br>
+ 
+            <label>URL:</label>
+            <input type="url" id="url" required><br><br>
+ 
+            <label>Description:</label>
+            <input type="text" id="description"><br><br>
+ 
+            <button type="submit">Add</button>
+        </form>
+ 
+        <h2>Existing Links</h2>
+        <ul id="linksList"></ul>
+    </div>
+ 
+    <script src="/static/datascript.js"></script>
+    <script src="/static/login.js"></script>
+</body>
+</html>
